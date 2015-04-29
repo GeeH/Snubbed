@@ -1,0 +1,29 @@
+{
+  "name": "GeeH/Snubbed",
+  "description": "Generate snub class to get code completion for ZF2 in your favourite IDE",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Gary Hockin",
+      "email": "gary@hock.in"
+    }
+  ],
+  "require": {
+    "php": ">=5.5",
+    "zendframework/zendframework": "~2.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "@stable"
+  },
+  "autoload": {
+    "psr-0": {
+      "Snubbed\\": "src/"
+    }
+  },
+  "autoload-dev": {
+      "psr-0": {
+        "SnubbedTest\\": "test/"
+      }
+  }
+}
