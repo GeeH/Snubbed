@@ -1,10 +1,11 @@
 <?php
 
 use Snubbed\ControllerSnubber;
+use Snubbed\FileWriter;
 use Zend\Mvc\Application;
 
 $dir = '/../';
-if(strpos(__DIR__, 'vendor')) {
+if (strpos(__DIR__, 'vendor')) {
     $dir = '/../../../../';
 }
 chdir(__DIR__ . $dir);
@@ -23,5 +24,10 @@ $config = require($configLocation);
 // create an application
 $application = Application::init($config);
 
-$controllerSnubber = new ControllerSnubber($application, new \Snubbed\FileWriter());
+$filerWriter = new FileWriter();
+
+$controllerSnubber = new ControllerSnubber($application, $fileWriter);
 $controllerSnubber->generateControllerSnub($abstractController);
+
+$viewSnubber = new \Snubbed\ViewSnubber($application, $filerWriter);
+$viewSnubber->generateViewSnubs($application);
