@@ -1,6 +1,6 @@
 <?php
 
-chdir(__DIR__ . '/../');
+chdir(__DIR__ . '/../../');
 require_once('vendor/autoload.php');
 
 $configLocation     = isset($argv[1]) ? $argv[1] : 'config/application.config.php';
