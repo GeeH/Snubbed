@@ -1,5 +1,5 @@
 {
-  "name": "GeeH/Snubbed",
+  "name": "geeh/snubbed",
   "description": "Generate snub class to get code completion for ZF2 in your favourite IDE",
   "minimum-stability": "stable",
   "license": "MIT",
