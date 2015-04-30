@@ -1,6 +1,14 @@
 <?php
 
-chdir(__DIR__ . '/../../');
+use Snubbed\ControllerSnubber;
+use Zend\Mvc\Application;
+
+$dir = '/../';
+if(strpos(__DIR__, 'vendor')) {
+    $dir = '/../../../../';
+}
+chdir(__DIR__ . $dir);
+
 require_once('vendor/autoload.php');
 
 $configLocation     = isset($argv[1]) ? $argv[1] : 'config/application.config.php';
@@ -15,5 +23,5 @@ $config = require($configLocation);
 // create an application
 $application = Application::init($config);
 
-$controllerSnubber = new \Snubbed\ControllerSnubber($application, new \Snubbed\FileWriter());
+$controllerSnubber = new ControllerSnubber($application, new \Snubbed\FileWriter());
 $controllerSnubber->generateControllerSnub($abstractController);
