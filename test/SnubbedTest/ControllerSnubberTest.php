@@ -41,6 +41,11 @@ class ControllerSnubberTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(ControllerSnubber::class, $this->snubber);
     }
 
+    public function testGetApplication()
+    {
+        $this->assertInstanceOf(Application::class, $this->snubber->getApplication());
+    }
+
     public function testGenerateControllerSnub()
     {
         $plugins = ['zfcUserAuthentication' => 'zfcuserauthentication'];
@@ -73,6 +78,6 @@ class ControllerSnubberTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('write');
 
-        $this->snubber->generateControllerStub(AbstractActionController::class);
+        $this->snubber->generateControllerSnub(AbstractActionController::class);
     }
 }

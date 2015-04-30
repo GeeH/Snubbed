@@ -7,7 +7,11 @@
 
 namespace Snubbed;
 
-
+/**
+ * Class FileWriter
+ * @package Snubbed
+ * @codeCoverageIgnore
+ */
 class FileWriter
 {
     public function write($filename, $contents)

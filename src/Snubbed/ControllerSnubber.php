@@ -33,7 +33,7 @@ class ControllerSnubber
     /**
      * @param string $abstractController
      */
-    public function generateControllerStub($abstractController)
+    public function generateControllerSnub($abstractController)
     {
         /** @var \Zend\Mvc\Controller\PluginManager $controllerPluginManager */
         $controllerPluginManager = $this->application->getServiceManager()->get('controller-plugin-manager');

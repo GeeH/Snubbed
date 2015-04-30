@@ -25,5 +25,6 @@
       "psr-0": {
         "SnubbedTest\\": "test/"
       }
-  }
+  },
+  "bin": ["bin/snub.php"]
 }
