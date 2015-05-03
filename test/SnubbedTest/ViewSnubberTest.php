@@ -20,7 +20,7 @@ class ViewSnubberTest extends \PHPUnit_Framework_TestCase
      */
     private $snubber;
 
-    public function setUp()
+    private function setUp()
     {
 
         $serviceManager = $this->getMockBuilder(ServiceManager::class)
@@ -47,6 +47,11 @@ class ViewSnubberTest extends \PHPUnit_Framework_TestCase
     public function testConstructor()
     {
         $this->assertInstanceOf(ViewSnubber::class, $this->snubber);
+    }
+
+    public function testGenerateSnubs()
+    {
+
     }
 
 }
