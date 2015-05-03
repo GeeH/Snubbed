@@ -24,10 +24,10 @@ $config = require($configLocation);
 // create an application
 $application = Application::init($config);
 
-$filerWriter = new FileWriter();
+$fileWriter = new FileWriter();
 
 $controllerSnubber = new ControllerSnubber($application, $fileWriter);
 $controllerSnubber->generateControllerSnub($abstractController);
 
-$viewSnubber = new \Snubbed\ViewSnubber($application, $filerWriter);
+$viewSnubber = new \Snubbed\ViewSnubber($application, $fileWriter);
 $viewSnubber->generateViewSnubs($application);
