@@ -42,6 +42,10 @@ class ViewSnubber extends InjectTemplateListener
      * @var array
      */
     private $variables = [];
+    /**
+     * @var array
+     */
+    private $viewHelpers = [];
 
     /**
      * @param Application $application
@@ -54,7 +58,7 @@ class ViewSnubber extends InjectTemplateListener
     }
 
     /**
-     * @param Application $application
+     * Generate the view snubs!
      */
     public function generateViewSnubs()
     {
@@ -71,7 +75,7 @@ class ViewSnubber extends InjectTemplateListener
         $this->createPaths();
         $this->createHelpers();
 
-
+        ViewSnubGenerator::writeFiles($this->fileWriter, $this->paths, $this->controllers, $this->variables, $this->viewHelpers);
     }
 
     /**
@@ -79,7 +83,7 @@ class ViewSnubber extends InjectTemplateListener
      * @param array $actions
      * @param AggregateResolver $viewResolver
      */
-    function handleActions($controller, array $actions, AggregateResolver $viewResolver)
+    private function handleActions($controller, array $actions, AggregateResolver $viewResolver)
     {
         foreach ($actions as $action) {
             $template = $this->resolveTemplate($controller, $action);
@@ -91,7 +95,7 @@ class ViewSnubber extends InjectTemplateListener
     /**
      * @return array
      */
-    function getControllersFromManager()
+    private function getControllersFromManager()
     {
         $return = [];
         foreach ($this->controllerManager->getCanonicalNames() as $controller => $normalised) {
@@ -104,7 +108,7 @@ class ViewSnubber extends InjectTemplateListener
      * @param $controller
      * @return array
      */
-    function getControllerMethods($controller)
+    private function getControllerMethods($controller)
     {
         $this->controllers[$controller] = $this->controllerManager->get($controller);
         $methods                        = get_class_methods(get_class($this->controllers[$controller]));
@@ -214,7 +218,7 @@ class ViewSnubber extends InjectTemplateListener
 
         $variablesArray = [];
         foreach ($variables as $name => $value) {
-            $type = $this->getType($value);
+            $type                  = $this->getType($value);
             $variablesArray[$name] = $type;
         }
 
@@ -241,7 +245,10 @@ class ViewSnubber extends InjectTemplateListener
     private function createHelpers()
     {
         /** @var HelperPluginManager $viewPluginManager */
-        $viewPluginManager = $this->application->getServiceManager()->get('view-helper-manager');
-        $this->viewHelpers[] = $viewPluginManager;
+        $viewPluginManager   = $this->application->getServiceManager()->get('view-helper-manager');
+        foreach($viewPluginManager->getCanonicalNames() as $name) {
+            $helper = $viewPluginManager->get($name);
+            $this->viewHelpers[$name] = get_class($helper);
+        }
     }
 }
