@@ -56,11 +56,11 @@ class ViewSnubber extends InjectTemplateListener
     /**
      * @param Application $application
      */
-    function generateViewSnubs(Application $application)
+    public function generateViewSnubs()
     {
 
         /** @var AggregateResolver $viewResolver */
-        $viewResolver = $application->getServiceManager()->get('view-resolver');
+        $viewResolver = $this->application->getServiceManager()->get('view-resolver');
 
         $controllers = $this->getControllersFromManager();
 

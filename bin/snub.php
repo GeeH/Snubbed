@@ -30,4 +30,4 @@ $controllerSnubber = new ControllerSnubber($application, $fileWriter);
 $controllerSnubber->generateControllerSnub($abstractController);
 
 $viewSnubber = new \Snubbed\ViewSnubber($application, $fileWriter);
-$viewSnubber->generateViewSnubs($application);
+$viewSnubber->generateViewSnubs();
