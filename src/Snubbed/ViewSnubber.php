@@ -8,6 +8,7 @@
 namespace Snubbed;
 
 
+use Zend\Form\Form;
 use Zend\Mvc\Application;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\Controller\ControllerManager;
@@ -236,6 +237,9 @@ class ViewSnubber extends InjectTemplateListener
      */
     private function getType($value, $inferType = true, $iterator = false)
     {
+        if(is_a($value, Form::class)) {
+            return get_class($value);
+        }
 
         if(is_array($value) && !empty($value)) {
             $type = $value[0];
