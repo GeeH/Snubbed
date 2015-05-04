@@ -9,6 +9,7 @@ namespace Snubbed;
 
 
 use Zend\Mvc\Application;
+use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\Controller\ControllerManager;
 use Zend\Mvc\View\Http\InjectTemplateListener;
 use Zend\View\HelperPluginManager;
@@ -183,8 +184,12 @@ class ViewSnubber extends InjectTemplateListener
     private function createPath($controllerName, array $controller)
     {
         foreach ($controller as $action => $template) {
-            $controllerClass = $this->controllers[$controllerName];
             try {
+
+                /** @var AbstractActionController $controllerClass */
+                $controllerClass = $this->controllerManager->get($controllerName);
+                $controllerClass->setEvent($this->application->getMvcEvent());
+
                 $viewModel = $controllerClass->$action();
             } catch (\Exception $e) {
                 $viewModel = null;
@@ -229,14 +234,40 @@ class ViewSnubber extends InjectTemplateListener
      * @param $value
      * @return string
      */
-    private function getType($value)
+    private function getType($value, $inferType = true, $iterator = false)
     {
-        $type = gettype($value);
-        if (is_object($value)) {
-            $type = get_class($value);
+
+        if(is_array($value) && !empty($value)) {
+            $type = $value[0];
+            return $this->getType($type, false, true);
         }
 
-        return $type;
+        if (is_a($value, \Iterator::class) && !empty($value)) {
+            $type = $value->current();
+            return $this->getType($type, false, true);
+        }
+
+        if (is_a($value, \IteratorAggregate::class) && $value->getIterator()->count() > 0) {
+            $type = $value->getIterator()->current();
+            return $this->getType($type, false, true);
+        }
+
+        if ($inferType) {
+            $type = gettype($value);
+            return $this->getType($type, false, $iterator);
+        }
+
+        if (is_object($value) && $iterator) {
+            $type = get_class($value) . '[]';
+            return $type;
+        }
+        if (is_object($value)) {
+            $type = get_class($value);
+            return $type;
+        }
+
+        return $value;
+
     }
 
     /**
@@ -245,9 +276,9 @@ class ViewSnubber extends InjectTemplateListener
     private function createHelpers()
     {
         /** @var HelperPluginManager $viewPluginManager */
-        $viewPluginManager   = $this->application->getServiceManager()->get('view-helper-manager');
-        foreach($viewPluginManager->getCanonicalNames() as $name) {
-            $helper = $viewPluginManager->get($name);
+        $viewPluginManager = $this->application->getServiceManager()->get('view-helper-manager');
+        foreach ($viewPluginManager->getCanonicalNames() as $name) {
+            $helper                   = $viewPluginManager->get($name);
             $this->viewHelpers[$name] = get_class($helper);
         }
     }

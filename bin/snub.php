@@ -21,8 +21,21 @@ if (strpos($abstractController, '\\') !== 0) {
 // load config
 $config = require($configLocation);
 
+
 // create an application
 $application = Application::init($config);
+
+$routerFactory = new \Zend\Mvc\Service\RouterFactory();
+$router = $routerFactory->createService($application->getServiceManager(), 'http', 'HttpRouter');
+$application->getServiceManager()->setAllowOverride(true)->setService('Router', $router);
+$application->getMvcEvent()->setRouter($router);
+
+$routeMatch = new \Zend\Mvc\Router\Http\RouteMatch([]);
+$application->getMvcEvent()->setRouteMatch($routeMatch);
+
+$request = new \Zend\Http\PhpEnvironment\Request();
+$application->getServiceManager()->setService('request', $request);
+$application->getMvcEvent()->setRequest($request);
 
 $fileWriter = new FileWriter();
 
