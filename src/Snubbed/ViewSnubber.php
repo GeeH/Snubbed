@@ -245,7 +245,7 @@ class ViewSnubber extends InjectTemplateListener
             return get_class($value);
         }
 
-        if(is_array($value) && !empty($value)) {
+        if(is_array($value) && !empty($value) && isset($value[0])) {
             $type = $value[0];
             return $this->getType($type, false, true);
         }
