@@ -84,3 +84,7 @@ Obviously, you need to replace the Snub class name with the classname that is su
 ![Screenshot](http://c.hock.in/7d8da0.png)
 
 > Note: There are some known problems at the moment that stop variable completion from happening. If, for example, your controller is protected by RBAC or ZfcUser authentication, then Snubbed won't be able to dispatch the controller from the command line, and therefore won't be able to analyise the output.
+
+# Helping
+
+At this moment, the code is terrible, untested, but actually works. If you find there are errors in using this then **please** submit issues here so I can try and get them fixed. **PLEASE PLEASE PLEASE**
