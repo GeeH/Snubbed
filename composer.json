@@ -18,13 +18,14 @@
   },
   "autoload": {
     "psr-0": {
-      "Snubbed\\": "src/"
+      "Snubbed\\": "src/",
+      "Snub\\": "./../../../.idea/"
     }
   },
   "autoload-dev": {
-      "psr-0": {
-        "SnubbedTest\\": "test/"
-      }
+    "psr-0": {
+      "SnubbedTest\\": "test/"
+    }
   },
   "bin": ["bin/snub.php"]
 }

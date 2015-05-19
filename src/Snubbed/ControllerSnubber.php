@@ -78,7 +78,7 @@ abstract class Snubbed$className extends $abstractController {}
 
 SNUB;
 
-        $this->fileWriter->write('.ide/Snubbed/Snubbed' . $className . '.php', $snub);
+        $this->fileWriter->write('.ide/Snub/Snubbed' . $className . '.php', $snub);
     }
 
     /**
