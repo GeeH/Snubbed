@@ -54,7 +54,7 @@ class ControllerSnubber
 /**
  * Generated on {$generated}
  */
-namespace Snubbed;
+namespace Snub;
 
 /**
 

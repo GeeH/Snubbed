@@ -64,7 +64,7 @@ class ViewSnubGenerator
      */
     private static function writeViewMap()
     {
-        $path  = '.ide/Snubbed/' . self::$viewPath . '/class_map.php';
+        $path  = '.ide/Snub/' . self::$viewPath . '/class_map.php';
         $paths = var_export(self::$paths, true);
         $paths = '<?php' . PHP_EOL . $paths . ';' . PHP_EOL;
         self::$fileWriter->write($path, $paths);
@@ -96,7 +96,7 @@ class ViewSnubGenerator
 /**
  * Generated on {$generated}
  */
-namespace Snubbed\\{$viewPath};
+namespace Snub\\{$viewPath};
 
 /**
 
@@ -139,7 +139,7 @@ SNUB;
 
         $snub .= "class $className extends \\Zend\\View\Renderer\\PhpRenderer {}" . PHP_EOL;
 
-        $path = '.ide/Snubbed/' . self::$viewPath . '/' . $className . '.php';
+        $path = '.ide/Snub/' . self::$viewPath . '/' . $className . '.php';
 
         self::$fileWriter->write($path, $snub);
 

@@ -112,12 +112,16 @@ class ViewSnubber extends InjectTemplateListener
      */
     private function getControllerMethods($controller)
     {
-        $this->controllers[$controller] = $this->controllerManager->get($controller);
-        $methods                        = get_class_methods(get_class($this->controllers[$controller]));
-        $methods                        = array_filter($methods, function ($action) {
-            return fnmatch('*Action', $action);
-        });
-        return $methods;
+        try {
+            $this->controllers[$controller] = $this->controllerManager->get($controller);
+            $methods                        = get_class_methods(get_class($this->controllers[$controller]));
+            $methods                        = array_filter($methods, function ($action) {
+                return fnmatch('*Action', $action);
+            });
+            return $methods;
+        } catch (\Exception $e) {
+            return [];
+        }
     }
 
     /**
