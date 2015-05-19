@@ -52,3 +52,35 @@ class IndexController extends AbstractActionController
 You'll now have code completion in your controllers, including any controller plugins:
 
 ![Screenshot](http://c.hock.in/6c1c35.png)
+
+## Views
+
+Snubbed will also generate view snubs that give you code completion in the view, including your view helpers and view variables for each view. In the `.ide/Snub/View` directory, you'll find a `class_map.php` that will tell you which Snub you should use for each view template. You'll see that it's straightforward, and you'll soon be able to predict the filename.
+
+To use the view Snubs, simply include an `@var` docblock at the beginning of your view file. Assuming your controller is:
+
+```
+class IndexController extends AbstractActionController
+{
+    public function indexAction()
+    {
+        return new ViewModel(
+            ['form' => new Form()]
+        );
+    }
+}
+```
+
+Then in your view (in this case `view\application\index\index.phtml`), simply add the following under an opening `<?php` tag right at the top of the file:
+
+```
+<?php
+/* @var \Snub\View\ApplicationControllerIndexIndexAction $this */
+?>
+```
+
+Obviously, you need to replace the Snub class name with the classname that is suitable for this view file. You'll then get code completion in the view, including the view variables that you set in the action:
+
+![Screenshot](http://c.hock.in/7d8da0.png)
+
+> Note: There are some known problems at the moment that stop variable completion from happening. If, for example, your controller is protected by RBAC or ZfcUser authentication, then Snubbed won't be able to dispatch the controller from the command line, and therefore won't be able to analyise the output.
