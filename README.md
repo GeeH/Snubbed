@@ -19,7 +19,7 @@ Create Snubs of Zend Framework 2 projects to make IDE integration much tighter
 
 * update your use statement where you import the basic controller in your controllers to use the Snubbed controllers instead - use the `as` keyword to make it seamless is recommended:
 
-```
+```php
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
@@ -36,7 +36,7 @@ class IndexController extends AbstractActionController
 
 Becomes:
 
-```
+```php
 namespace Application\Controller;
 
 use Snub\SnubbedZendMvcControllerAbstractActionController as AbstractActionController;
@@ -61,7 +61,7 @@ Snubbed will also generate view snubs that give you code completion in the view,
 
 To use the view Snubs, simply include an `@var` docblock at the beginning of your view file. Assuming your controller is:
 
-```
+```php
 class IndexController extends AbstractActionController
 {
     public function indexAction()
@@ -75,7 +75,7 @@ class IndexController extends AbstractActionController
 
 Then in your view (in this case `view\application\index\index.phtml`), simply add the following under an opening `<?php` tag right at the top of the file:
 
-```
+```php
 <?php
 /* @var \Snub\View\ApplicationControllerIndexIndexAction $this */
 ?>
